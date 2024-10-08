@@ -5,15 +5,21 @@ const imgsEl = document.querySelectorAll("img")
 
 let current = 1;
 
+let timeout;
+
 nextEl.addEventListener("click", ()=>{
     current++;
+    clearTimeout(timeout);
     update()
 })
 
 prevEl.addEventListener("click", ()=>{
     current--;
+    clearTimeout(timeout);
     update()
 })
+
+update()
 
 function update(){
     if(current > imgsEl.length){
@@ -23,4 +29,9 @@ function update(){
         current = imgsEl.length;
     }
     imgEl.style.transform = `translateX(-${(current - 1) *500}px)`
+
+    timeout = setTimeout(() => {
+        current++;
+        update()
+    },3000)
 }
